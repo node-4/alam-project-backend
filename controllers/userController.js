@@ -1437,6 +1437,7 @@ exports.getcancelReturnOrder = async (req, res, next) => {
 };
 exports.createWishlist = async (req, res, next) => {
         try {
+                console.log(req.user);
                 const productId = req.params.id;
                 const viewProduct = await product.findById(productId);
                 let wishList = await Wishlist.findOne({ user: req.user._id });
