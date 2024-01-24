@@ -252,8 +252,8 @@ exports.resetPassword = async (req, res) => {
 };
 exports.signin = async (req, res) => {
         try {
-                const { email, password, userType } = req.body;
-                const user = await User.findOne({ email: email, userType: userType });
+                const { phone, password, userType } = req.body;
+                const user = await User.findOne({ phone: phone, userType: userType });
                 if (!user) {
                         return res.status(404).send({ message: "user not found ! not registered" });
                 }
