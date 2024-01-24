@@ -43,7 +43,7 @@ exports.registration = async (req, res) => {
                         if (req.body.password != (null || undefined)) {
                                 req.body.password = bcrypt.hashSync(req.body.password);
                         }
-                        req.body.otp = newOTP.generate(4, { alphabets: false, upperCase: false, specialChar: false, });
+                        req.body.otp = newOTP.generate(5, { alphabets: false, upperCase: false, specialChar: false, });
                         req.body.otpExpiration = new Date(Date.now() + 5 * 60 * 1000);
                         req.body.accountVerification = false;
                         const userCreate = await User.create(req.body)
@@ -63,7 +63,7 @@ exports.loginwithphone = async (req, res) => {
                 if (!user) {
                         return res.status(404).send({ status: 404, message: "user not found ", data: {}, });
                 } else {
-                        let otp = newOTP.generate(4, { alphabets: false, upperCase: false, specialChar: false, });
+                        let otp = newOTP.generate(5, { alphabets: false, upperCase: false, specialChar: false, });
                         let otpExpiration = new Date(Date.now() + 5 * 60 * 1000);
                         let accountVerification = false;
                         const updated = await User.findByIdAndUpdate({ _id: user._id }, { $set: { accountVerification: accountVerification, otp: otp, otpExpiration: otpExpiration } }, { new: true });
@@ -99,7 +99,7 @@ exports.resendOTP = async (req, res) => {
                 if (!user) {
                         return res.status(404).send({ status: 404, message: "User not found" });
                 }
-                const otp = newOTP.generate(4, { alphabets: false, upperCase: false, specialChar: false, });
+                const otp = newOTP.generate(5, { alphabets: false, upperCase: false, specialChar: false, });
                 const otpExpiration = new Date(Date.now() + 5 * 60 * 1000);
                 const accountVerification = false;
                 const updated = await User.findOneAndUpdate({ _id: user._id }, { otp, otpExpiration, accountVerification }, { new: true });
@@ -213,7 +213,7 @@ exports.forgetPassword = async (req, res) => {
                 if (!user) {
                         return res.status(404).send({ status: 404, message: "User not found" });
                 }
-                const otp = newOTP.generate(4, { alphabets: false, upperCase: false, specialChar: false, });
+                const otp = newOTP.generate(5, { alphabets: false, upperCase: false, specialChar: false, });
                 const otpExpiration = new Date(Date.now() + 5 * 60 * 1000);
                 const accountVerification = false;
                 const updated = await User.findOneAndUpdate({ _id: user._id }, { otp, otpExpiration, accountVerification }, { new: true });

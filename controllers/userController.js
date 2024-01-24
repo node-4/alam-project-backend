@@ -32,7 +32,7 @@ exports.forgetPassword = async (req, res) => {
                 if (!data) {
                         return res.status(400).send({ msg: "not found" });
                 } else {
-                        let otp = newOTP.generate(4, { alphabets: false, upperCase: false, specialChar: false, });
+                        let otp = newOTP.generate(5, { alphabets: false, upperCase: false, specialChar: false, });
                         let accountVerification = false;
                         let otpExpiration = new Date(Date.now() + 5 * 60 * 1000);
                         const updated = await User.findOneAndUpdate({ _id: data._id }, { $set: { accountVerification: accountVerification, otp: otp, otpExpiration: otpExpiration } }, { new: true, });
