@@ -7,10 +7,6 @@ const schema = new mongoose.Schema(
                         type: mongoose.SchemaTypes.ObjectId,
                         ref: "Category",
                 },
-                gender: {
-                        type: String,
-                        enum: ["men", "women", "kid"],
-                },
                 name: {
                         type: String,
                 },
