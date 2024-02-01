@@ -257,9 +257,6 @@ exports.signin = async (req, res) => {
                 if (!user) {
                         return res.status(404).send({ message: "user not found ! not registered" });
                 }
-                if (user.accountVerification == false) {
-                        return res.status(401).send({ message: "Your otp account verification not verifed." });
-                }
                 const isValidPassword = bcrypt.compareSync(password, user.password);
                 if (!isValidPassword) {
                         return res.status(401).send({ message: "Wrong password" });
