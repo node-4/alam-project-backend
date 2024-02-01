@@ -1619,7 +1619,60 @@ exports.getNewArrivalProducts = async (req, res) => {
                 return res.status(500).json({ status: 500, message: 'Error retrieving new arrival products', error: error.message, });
         }
 };
-
+exports.updatePopup = async (req, res) => {
+        try {
+                const findUser = await User.findById({ _id: req.user._id });
+                if (findUser) {
+                        if (findUser.popup == true) {
+                                const data = await User.findOneAndUpdate({ _id: req.user._id }, { $set: { popup: false } }, { new: true });
+                                return res.status(200).json({ success: true, details: data })
+                        } else {
+                                const data = await User.findOneAndUpdate({ _id: req.user._id }, { $set: { popup: true } }, { new: true });
+                                return res.status(200).json({ success: true, details: data })
+                        }
+                } else {
+                        return res.status(201).json({ status: 404, message: "User not found" })
+                }
+        } catch (err) {
+                return res.status(400).json({ message: err.message })
+        }
+}
+exports.updateNotifactionStatus = async (req, res) => {
+        try {
+                const findUser = await User.findById({ _id: req.user._id });
+                if (findUser) {
+                        if (findUser.notification == true) {
+                                const data = await User.findOneAndUpdate({ _id: req.user._id }, { $set: { notification: false } }, { new: true });
+                                return res.status(200).json({ success: true, details: data })
+                        } else {
+                                const data = await User.findOneAndUpdate({ _id: req.user._id }, { $set: { notification: true } }, { new: true });
+                                return res.status(200).json({ success: true, details: data })
+                        }
+                } else {
+                        return res.status(201).json({ status: 404, message: "User not found" })
+                }
+        } catch (err) {
+                return res.status(400).json({ message: err.message })
+        }
+}
+exports.updateOrderHistory = async (req, res) => {
+        try {
+                const findUser = await User.findById({ _id: req.user._id });
+                if (findUser) {
+                        if (findUser.orderHistory == true) {
+                                const data = await User.findOneAndUpdate({ _id: req.user._id }, { $set: { orderHistory: false } }, { new: true });
+                                return res.status(200).json({ success: true, details: data })
+                        } else {
+                                const data = await User.findOneAndUpdate({ _id: req.user._id }, { $set: { orderHistory: true } }, { new: true });
+                                return res.status(200).json({ success: true, details: data })
+                        }
+                } else {
+                        return res.status(201).json({ status: 404, message: "User not found" })
+                }
+        } catch (err) {
+                return res.status(400).json({ message: err.message })
+        }
+}
 // const stripe = require("stripe")('pk_live_51NYCJcArS6Dr0SQYUKlqAd37V2GZMbxBL6OGM9sZi8CY6nv6H7TUJcjfMiepBmkIdSdn1bUCo855sQuKb66oiM4j00PRLQzvUc'); // live
 const stripe = require("stripe")('sk_test_51NYCJcArS6Dr0SQY0UJ5ZOoiPHQ8R5jNOyCMOkjxpl4BHkG4DcAGAU8tjBw6TSOSfimDSELa6BVyCVSo9CGLXlyX00GkGDAQFo'); // test
 

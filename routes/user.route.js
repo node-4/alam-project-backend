@@ -44,5 +44,7 @@ router.get('/user/ticket/:id', auth.getTicketbyId);
 router.put('/user/replyOnTicket/:id', [authJwt.verifyToken], auth.replyOnTicket);
 router.get("/user/product/getMostDemandedProducts", auth.getMostDemandedProducts);
 router.get("/user/product/getNewArrivalProducts", auth.getNewArrivalProducts);
-
+router.put('/user/updateNotifactionStatus', [authJwt.verifyToken], auth.updateNotifactionStatus);
+router.put('/user/updatePopup', [authJwt.verifyToken], auth.updatePopup);
+router.put('/user/updateOrderHistory', [authJwt.verifyToken], auth.updateOrderHistory);
 module.exports = router;

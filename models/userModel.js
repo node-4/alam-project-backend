@@ -53,6 +53,18 @@ var userSchema = new schema(
                         type: Boolean,
                         default: false,
                 },
+                popup: {
+                        type: Boolean,
+                        default: false
+                },
+                orderHistory: {
+                        type: Boolean,
+                        default: false
+                },
+                notification: {
+                        type: Boolean,
+                        default: false
+                },
                 kycDocumentId: {
                         type: schema.Types.ObjectId,
                         ref: "vendorKyc"
