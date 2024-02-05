@@ -66,4 +66,8 @@ router.put('/admin/closeTicket/:id', [authJwt.verifyToken], auth.closeTicket);
 router.post('/admin/addCodTovendor', [authJwt.verifyToken], auth.addCodTovendor);
 router.put('/admin/updateCodTovendor/:id', [authJwt.verifyToken], auth.editCodTovendor);
 router.get("/admin/listCod", [authJwt.verifyToken], auth.listCod);
+app.post("/admin/Brand/addBrand", [authJwt.verifyToken], upload.single('image'), auth.createBrands);
+app.get("/admin/Brand/allBrand", auth.getBrands);
+app.put("/admin/Brand/updateBrand/:id", [authJwt.verifyToken], upload.single('image'), auth.updateBrand);
+app.delete("/admin/Brand/deleteBrand/:id", [authJwt.verifyToken], auth.removeBrand);
 module.exports = router;

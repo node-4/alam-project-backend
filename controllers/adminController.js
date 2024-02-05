@@ -1443,6 +1443,57 @@ exports.listCod = async (req, res) => {
                 return res.status(500).send({ status: 500, message: "Server error" + error.message });
         }
 };
+exports.createBrands = async (req, res) => {
+        try {
+                let findBrand = await Brand.findOne({ name: req.body.name });
+                if (findBrand) {
+                        return res.status(409).json({ message: "Brand already exit.", status: 409, data: {} });
+                } else {
+                        let fileUrl;
+                        if (req.file) {
+                                fileUrl = req.file ? req.file.path : "";
+                        }
+                        const data = { name: req.body.name, image: fileUrl };
+                        const category = await Brand.create(data);
+                        return res.status(200).json({ message: "Brand add successfully.", status: 200, data: category });
+                }
+        } catch (error) {
+                return res.status(500).json({ status: 500, message: "internal server error ", data: error.message, });
+        }
+};
+exports.getBrands = async (req, res) => {
+        const categories = await Brand.find({});
+        if (categories.length > 0) {
+                return res.status(201).json({ message: "Brand Found", status: 200, data: categories, });
+        }
+        return res.status(201).json({ message: "Brand not Found", status: 404, data: {}, });
+
+};
+exports.updateBrand = async (req, res) => {
+        const { id } = req.params;
+        const category = await Brand.findById(id);
+        if (!category) {
+                return res.status(404).json({ message: "Brand Not Found", status: 404, data: {} });
+        }
+        let fileUrl;
+        if (req.file) {
+                fileUrl = req.file ? req.file.path : "";
+        }
+        category.image = fileUrl || category.image;
+        category.name = req.body.name || category.name;
+        let update = await category.save();
+        return res.status(200).json({ message: "Updated Successfully", data: update });
+};
+exports.removeBrand = async (req, res) => {
+        const { id } = req.params;
+        const category = await Brand.findById(id);
+        if (!category) {
+                return res.status(404).json({ message: "Brand Not Found", status: 404, data: {} });
+        } else {
+                await Brand.findByIdAndDelete(category._id);
+                return res.status(200).json({ message: "Brand Deleted Successfully !" });
+        }
+};
 const reffralCode = async () => {
         var digits = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let OTP = '';
