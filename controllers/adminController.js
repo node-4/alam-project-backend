@@ -18,6 +18,7 @@ const cancelReturnOrder = require("../models/order/cancelReturnOrder");
 const offer = require('../models/offer');
 const vendorKyb = require("../models/vendorKyb");
 const ticket = require('../models/ticket');
+const Brand = require('../models/brand')
 const vendorCod = require("../models/vendorCod");
 exports.registration = async (req, res) => {
         const { phone, email } = req.body;
