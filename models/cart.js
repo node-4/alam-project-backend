@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
-const mongoosePaginate = require('mongoose-paginate');
+const mongoosePaginate = require('mongoose-paginate-v2');
 let status = require('../enums/status');
 const DocumentSchema = schema({
         userId: {

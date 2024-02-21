@@ -210,35 +210,35 @@ exports.paginateCategoriesSearch = async (req, res) => {
         try {
                 const { search, fromDate, toDate, page, limit } = req.query;
                 let query = {};
+                console.log(req.query)
                 if (search) {
                         query.$or = [
-                                { "name": { $regex: req.query.search, $options: "i" }, },
-                        ]
+                                { "name": { $regex: search, $options: "i" } }
+                        ];
                 }
-                if ((fromDate != 'null') && (toDate == 'null')) {
-                        query.createdAt = { $gte: fromDate };
-                }
-                if ((fromDate == 'null') && (toDate != 'null')) {
-                        query.createdAt = { $lte: toDate };
-                }
-                if ((fromDate != 'null') && (toDate != 'null')) {
-                        query.$and = [
-                                { createdAt: { $gte: fromDate } },
-                                { createdAt: { $lte: toDate } },
-                        ]
+                if (fromDate != null && toDate != null) {
+                        query.createdAt = {
+                                $gte: new Date(fromDate),
+                                $lte: new Date(toDate)
+                        };
+                } else if (fromDate != null) {
+                        query.createdAt = { $gte: new Date(fromDate) };
+                } else if (toDate != null) {
+                        query.createdAt = { $lte: new Date(toDate) };
                 }
                 let options = {
                         page: Number(page) || 1,
                         limit: Number(limit) || 10,
-                        sort: { createdAt: -1 },
+                        sort: { createdAt: -1 }
                 };
+                console.log(query)
                 let data = await Category.paginate(query, options);
-                return res.status(200).json({ status: 200, message: "Category data found.", data: data });
-
+                return res.status(200).json({ status: 200, message: "Category data found.", data });
         } catch (err) {
-                return res.status(500).send({ msg: "internal server error ", error: err.message, });
+                return res.status(500).json({ msg: "Internal server error", error: err.message });
         }
 };
+
 exports.updateCategory = async (req, res) => {
         try {
                 const { id } = req.params;

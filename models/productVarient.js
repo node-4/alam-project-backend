@@ -1,6 +1,6 @@
 const Mongoose = require("mongoose");
 const Schema = Mongoose.Schema;
-const mongoosePaginate = require("mongoose-paginate");
+const mongoosePaginate = require("mongoose-paginate-v2");
 const mongooseAggregatePaginate = require("mongoose-aggregate-paginate");
 const status = require('../enums/status');
 const stockStatus = require("../enums/stockStatus");
