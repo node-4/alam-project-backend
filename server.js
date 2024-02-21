@@ -28,4 +28,4 @@ app.listen(5004, () => {
     console.log(`Listening on port 5004!`);
 });
 
-module.exports = { handler: serverless(app) };
+module.exports.handler = serverless(app);
