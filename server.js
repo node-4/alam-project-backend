@@ -34,7 +34,7 @@ mongoose.set("strictQuery", true);
 //     console.log(`Mongodb connected with server: ${process.env.DB_URL}`);
 // });
 mongoose.connect('mongodb+srv://node4:node4@cluster0.m36gc8y.mongodb.net/alam-backend?retryWrites=true&w=majority').then((data) => {
-    console.log(`Mongodb connected with server: ${process.env.DB_URL}`);
+    console.log(`Mongodb connected with server: alam-backend`);
 });
 app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${process.env.PORT}!`);
