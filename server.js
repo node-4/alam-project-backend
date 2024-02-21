@@ -29,10 +29,6 @@ app.use('/api/v1', static);
 
 mongoose.Promise = global.Promise;
 mongoose.set("strictQuery", true);
-
-// mongoose.connect('mongodb+srv://node4:node4@cluster0.m36gc8y.mongodb.net/alam-backend?retryWrites=true&w=majority').then((data) => {
-//     console.log(`Mongodb connected with server: ${process.env.DB_URL}`);
-// });
 mongoose.connect('mongodb+srv://node4:node4@cluster0.m36gc8y.mongodb.net/alam-backend?retryWrites=true&w=majority').then((data) => {
     console.log(`Mongodb connected with server: alam-backend`);
 });
