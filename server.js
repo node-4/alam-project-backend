@@ -14,23 +14,18 @@ app.use(cors());
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
-
-const admin = require('./routes/admin.route');
-const static = require('./routes/static.route');
-const user = require('./routes/user.route');
-const vendor = require('./routes/vendor.route');
-app.use('/api/v1', admin);
-app.use('/api/v1', user);
-app.use('/api/v1', vendor);
-app.use('/api/v1', static);
+require('./routes/admin.route')(app);
+require('./routes/user.route')(app);
+require('./routes/static.route')(app);
+require('./routes/vendor.route')(app);
 
 mongoose.Promise = global.Promise;
 mongoose.set("strictQuery", true);
 mongoose.connect('mongodb+srv://node4:node4@cluster0.m36gc8y.mongodb.net/alam-backend?retryWrites=true&w=majority').then((data) => {
     console.log(`Mongodb connected with server: alam-backend`);
 });
-app.listen(process.env.PORT, () => {
-    console.log(`Listening on port ${process.env.PORT}!`);
+app.listen(5004, () => {
+    console.log(`Listening on port 5004!`);
 });
 
 module.exports = { handler: serverless(app) };
